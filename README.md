@@ -4,7 +4,7 @@ A modern Progressive Web App demonstrating key PWA features including offline su
 
 ## 📌 Live Demo
 
-[Live Demo Link](https://pwa-notifications-demo.netlify.app)
+[Live Demo Link](https://pwa-notifications-sigma.vercel.app/)
 
 ## 📂 GitHub Repository
 
