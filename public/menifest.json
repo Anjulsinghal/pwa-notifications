@@ -3,7 +3,7 @@
     "short_name": "PWA Demo",
     "description": "A simple Progressive Web App built with React, TypeScript, and Vite",
     "start_url": "/",
-    "display": "standalone",
+    "display": "fullscreen",
     "background_color": "#ffffff",
     "theme_color": "#3b82f6",
     "icons": [
