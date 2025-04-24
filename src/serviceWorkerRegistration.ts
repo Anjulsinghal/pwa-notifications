@@ -7,13 +7,12 @@ export const registerServiceWorker = async () => {
       
       console.log('Service Worker registered with scope:', registration.scope);
       
-      // Setup periodic sync if available
       if ('periodicSync' in registration) {
         const tags = await (registration as any).periodicSync.getTags();
         if (!tags.includes('content-sync')) {
           try {
             await (registration as any).periodicSync.register('content-sync', {
-              minInterval: 24 * 60 * 60 * 1000 // Once per day
+              minInterval: 24 * 60 * 60 * 1000 
             });
             console.log('Periodic sync registered');
           } catch (error) {
@@ -29,7 +28,6 @@ export const registerServiceWorker = async () => {
   }
 };
 
-// Check if service worker can be updated
 export const checkForUpdates = async () => {
   if ('serviceWorker' in navigator) {
     const registration = await navigator.serviceWorker.getRegistration();
@@ -39,6 +37,4 @@ export const checkForUpdates = async () => {
   }
 };
 
-// File: public/sw.js
-// This is the service worker file that will be copied to the dist folder
 

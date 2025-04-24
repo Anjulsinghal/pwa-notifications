@@ -6,11 +6,9 @@ import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import { promises as fs } from "fs";
 
-// Get current directory since __dirname is not available in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Copy service worker to build directory
 function copyServiceWorker() {
   return {
     name: "copy-sw",
@@ -19,9 +17,7 @@ function copyServiceWorker() {
         const swSrc = resolve(__dirname, "./public/sw.js");
         const swDest = resolve(__dirname, "./dist/sw.js");
         await fs.copyFile(swSrc, swDest);
-        // Using console is fine in Vite plugins - this works in Node environment
       } catch (error) {
-        // Using console is fine in Node.js environment
         process.stderr.write(`Failed to copy service worker: ${error}\n`);
       }
     },
@@ -51,7 +47,6 @@ export default defineConfig({
         prefer_related_applications: false,
       },
       workbox: {
-        // importWorkbox: true,
         globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
         cleanupOutdatedCaches: true,
         clientsClaim: true,

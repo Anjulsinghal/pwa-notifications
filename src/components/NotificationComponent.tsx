@@ -33,24 +33,19 @@ const NotificationComponent = () => {
     }
 
     try {
-      // Check if service worker is registered
       if ('serviceWorker' in navigator && 'PushManager' in window) {
-        // First try to send via service worker
         navigator.serviceWorker.ready.then(registration => {
           registration.showNotification('PWA Notification', {
             body: message,
             icon: '/icon-192x192.png',
             badge: '/icon-192x192.png',
-            // Removed vibrate property as it's not in the TypeScript definition
           });
           setNotificationStatus('Notification sent!');
           setMessage('');
         }).catch(err => {
-          // If service worker push fails, fallback to regular notification
           throw err;
         });
       } else {
-        // Fallback to regular notification
         new Notification('PWA Notification', {
           body: message,
           icon: '/icon-192x192.png'

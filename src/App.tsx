@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import NotificationComponent from './components/NotificationComponent';
+import NotificationButtons from './components/NotificationButtons';
 
 function App() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -14,16 +15,12 @@ function App() {
     window.addEventListener('online', handleOnlineStatus);
     window.addEventListener('offline', handleOnlineStatus);
 
-    // Check if PWA is installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
     }
 
-    // Handle install prompt
     window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent Chrome 67+ from automatically showing the prompt
       e.preventDefault();
-      // Stash the event so it can be triggered later
       setDeferredPrompt(e);
     });
 
@@ -36,14 +33,11 @@ function App() {
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
     
-    // Show the install prompt
     deferredPrompt.prompt();
     
-    // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
     console.log(`User response to install prompt: ${outcome}`);
     
-    // We no longer need the prompt
     setDeferredPrompt(null);
     
     if (outcome === 'accepted') {
@@ -67,6 +61,8 @@ function App() {
             It supports offline usage, push notifications, and can be installed on your device.
           </p>
         </div>
+
+        <NotificationButtons />
 
         <NotificationComponent />
 

@@ -1,3 +1,4 @@
+
 const CACHE_NAME = 'pwa-cache-v1';
 const urlsToCache = [
   '/',
@@ -85,31 +86,74 @@ self.addEventListener('fetch', (event) => {
 
 // Handle push notifications
 self.addEventListener('push', (event) => {
-  const data = event.data ? event.data.json() : {};
-  const title = data.title || 'New Notification';
-  const options = {
-    body: data.body || 'Something new happened!',
-    icon: data.icon || '/icon-192x192.png',
-    badge: data.badge || '/icon-192x192.png',
-    // Note: vibrate property is part of the Web Notification API but 
-    // TypeScript types don't include it. It still works in browsers that support it.
-    // vibrate: [200, 100, 200]
-  };
-  
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
+  try {
+    const data = event.data ? event.data.json() : {};
+    const title = data.title || 'New Notification';
+    
+    // Configure notification options based on the data or use defaults
+    const options = {
+      body: data.body || 'Something new happened!',
+      icon: data.icon || '/icon-192x192.png',
+      badge: data.badge || '/icon-192x192.png',
+      tag: data.tag || 'default-notification',
+      data: data.data || {},
+      // Note: vibrate works in browsers but might not be in TypeScript types
+      vibrate: data.vibrate || [200, 100, 200]
+    };
+    
+    event.waitUntil(
+      self.registration.showNotification(title, options)
+    );
+  } catch (error) {
+    console.error('Error handling push event:', error);
+  }
 });
 
 // Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   
+  // Get notification data - may contain useful info about what to do
+  const notificationData = event.notification.data || {};
+  const type = notificationData.type || 'default';
+  
+  // You can handle different actions based on notification type
+  let url = '/';
+  
+  switch (type) {
+    case 'info':
+      url = '/?section=info';
+      break;
+    case 'success':
+      url = '/?section=success';
+      break;
+    case 'warning':
+      url = '/?section=warning';
+      break;
+    case 'error':
+      url = '/?section=error';
+      break;
+    default:
+      url = '/';
+  }
+  
   event.waitUntil(
-    clients.openWindow('/')
+    clients.matchAll({type: 'window'}).then(windowClients => {
+      // Check if there is already a window focused
+      for (let client of windowClients) {
+        if (client.url === url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      
+      // If no window is open or the URL doesn't match, open a new one
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    })
   );
 });
-
+s
 // Handle periodic sync
 self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'content-sync') {

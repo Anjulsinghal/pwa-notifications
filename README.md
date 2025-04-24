@@ -1,50 +1,107 @@
-# React + TypeScript + Vite
+# Progressive Web App (PWA) Demo with React + TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Progressive Web App demonstrating key PWA features including offline support, push notifications, and installability.
 
-Currently, two official plugins are available:
+## 📌 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Live Demo Link](https://pwa-notifications-demo.netlify.app)
 
-## Expanding the ESLint configuration
+## 📂 GitHub Repository
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+[Repository Link](https://github.com/Anjulsinghal/pwa-notifications)
 
-- Configure the top-level `parserOptions` property like this:
+## ✨ Features
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Service Worker** for offline support
+- **Push Notifications** with multiple types (Info, Success, Warning, Error)
+- **Installable** as a standalone application
+- **Responsive Design** with Tailwind CSS
+- **TypeScript** for type safety
+- **Vite** for fast development and optimized builds
+
+## 📱 Installation
+
+The "Install App" button will only appear when:
+1. The app is accessed via HTTPS (deployed site)
+2. The user hasn't already installed the app
+3. The app meets PWA criteria (has a valid manifest, registered service worker, etc.)
+
+> **Note:** The install option will not appear in localhost development environments. To test the installation feature, please use the deployed version.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 16.x or higher
+- npm 7.x or higher
+
+### Local Development
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Anjulsinghal/pwa-notifications
+cd pwa-notifications
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Install dependencies:
+```bash
+npm install
 ```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+### Production Build
+
+1. Create a production build:
+```bash
+npm run build
+```
+
+2. Preview the production build locally:
+```bash
+npm run preview
+```
+
+## 📁 Project Structure
+
+```
+pwa-notifications/
+├── public/
+│   └── sw.js                  # Service worker implementation
+├── src/
+│   ├── components/
+│   │   ├── Notification.tsx             # Basic notification component
+│   │   └── NotificationButtons.tsx      # Multi-type notification buttons
+│   ├── App.tsx                # Main application component
+│   ├── main.tsx               # Application entry point
+│   ├── index.css              # Global styles with Tailwind
+│   └── serviceWorkerRegistration.ts     # Service worker registration
+├── index.html                 # HTML template
+├── vite.config.ts             # Vite configuration
+├── tailwind.config.js         # Tailwind CSS configuration
+├── tsconfig.json              # TypeScript configuration
+└── package.json               # Project dependencies and scripts
+```
+
+## 🔧 How It Works
+
+### Service Worker
+
+The service worker (`sw.js`) handles:
+- Caching static assets for offline use
+- Intercepting network requests
+- Managing push notifications
+- Background sync operations
+
+### Notifications
+
+The app demonstrates two ways to implement notifications:
+1. **Basic Notifications**: Text-based notifications with the original component
+2. **Typed Notifications**: Four different notification types (Info, Success, Warning, Error)
+
+### Installation
+
+The PWA can be installed on supported devices and browsers. The installation prompt is handled by the browser, and our app provides a custom "Install App" button when the conditions are met.
