@@ -105,3 +105,10 @@ The app demonstrates two ways to implement notifications:
 ### Installation
 
 The PWA can be installed on supported devices and browsers. The installation prompt is handled by the browser, and our app provides a custom "Install App" button when the conditions are met.
+![Screenshot from 2025-04-24 18-57-52](https://github.com/user-attachments/assets/f53bf480-9be2-47bc-a040-13673c092212)
+![Screenshot from 2025-04-24 18-57-38](https://github.com/user-attachments/assets/3ec71e3c-73a5-42c8-9e45-b77a5d8a61ef)
+![Screenshot from 2025-04-24 18-57-25](https://github.com/user-attachments/assets/728de43d-ca0c-4570-a742-eb26ca411df0)
+![Screenshot from 2025-04-24 18-57-12](https://github.com/user-attachments/assets/8459c210-48b4-470f-b864-d8d8bc6cfe07)
+
+
+
